@@ -2,7 +2,7 @@
 FROM node:20-bookworm-slim AS builder
 WORKDIR /app
 
-# Look in the SAME folder as the Dockerfile for package files
+# Look in the same folder as this Dockerfile
 COPY package*.json ./
 RUN npm install
 
@@ -10,16 +10,15 @@ RUN npm install
 FROM heroiclabs/nakama:3.25.0
 WORKDIR /nakama/data
 
-# Copy dependencies from builder
+# Copy dependencies
 COPY --from=builder /app/node_modules /nakama/data/modules/node_modules/
 
-# Copy your game logic and config from the SAME folder as the Dockerfile
-COPY ./local.js /nakama/data/modules/
+# --- CRITICAL CHANGE HERE ---
+# If your file is named index.js, use index.js. If it is local.js, use local.js
+COPY ./index.js /nakama/data/modules/
 COPY ./local.yml /nakama/data/
 
-# Expose ports
 EXPOSE 7349 7350 7351
 
 ENTRYPOINT ["/nakama/nakama"]
-# Point to the config we just copied
 CMD ["--config", "/nakama/data/local.yml", "--database.address", "root@localhost:26257"]
