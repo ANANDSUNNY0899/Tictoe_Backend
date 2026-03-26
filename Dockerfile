@@ -1,6 +1,7 @@
-# Step 1: Build stage (to install JS dependencies)
-FROM node:node-bookworm-slim AS builder
+# Step 1: Build stage (Fixed the image name)
+FROM node:20-bookworm-slim AS builder
 WORKDIR /app
+
 # Only copy package files first to use Docker cache
 COPY package*.json ./
 RUN npm install
