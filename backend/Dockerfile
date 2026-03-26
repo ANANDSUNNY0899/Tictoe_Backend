@@ -13,6 +13,5 @@ COPY ./local.yml ./data/
 EXPOSE 7349 7350 7351
 
 ENTRYPOINT ["/nakama/nakama"]
-# We put the actual Render DB URL here to force the connection
-# Final CMD using the full URI format for better compatibility
-CMD ["--config", "./data/local.yml", "--data_dir", "./data", "--database.address", "postgres://root:cby1yuK1SooZbmNZpgZ4I8IufZGZ71pN@dpg-d72osnu3jp1c7386n5ag-a:5432/nakama_a6dq?sslmode=disable"]
+# We only point to the config; we will let Render handle the DB address
+CMD ["--config", "./data/local.yml", "--data_dir", "./data"]
