@@ -14,5 +14,4 @@ COPY ./local.yml ./data/
 EXPOSE 7349 7350 7351
 
 ENTRYPOINT ["/nakama/nakama"]
-# REMOVED the hardcoded database address flag
 CMD ["--config", "./data/local.yml", "--data_dir", "./data"]
