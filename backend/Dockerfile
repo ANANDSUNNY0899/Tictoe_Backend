@@ -6,13 +6,14 @@ RUN npm install
 FROM heroiclabs/nakama:3.25.0
 WORKDIR /nakama/data
 
-# 1. Copy the modules folder (containing index.js) into the container
-COPY ./modules/ ./modules/
+# 1. Copy index.js directly into the WORKDIR (/nakama/data/)
+# We are NOT putting it in a modules folder anymore to stop the path doubling
+COPY ./modules/index.js .
 
-# 2. Copy the node_modules from the builder stage
-COPY --from=builder /app/node_modules ./modules/node_modules/
+# 2. Copy dependencies
+COPY --from=builder /app/node_modules ./node_modules/
 
-# 3. Copy the config file
+# 3. Copy the config
 COPY ./local.yml .
 
 EXPOSE 7349 7350 7351
