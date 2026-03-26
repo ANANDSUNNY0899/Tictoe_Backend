@@ -10,8 +10,11 @@ COPY --from=builder /app/node_modules ./data/modules/node_modules/
 COPY ./modules/index.js ./data/modules/
 COPY ./local.yml ./data/
 
-
 EXPOSE 7349 7350 7351
 
-ENTRYPOINT ["/nakama/nakama"]
-CMD ["--config", "./data/local.yml", "--data_dir", "./data"]
+# We change the Entrypoint to a shell script so we can chain two commands together
+ENTRYPOINT ["/bin/sh", "-c"]
+
+# 1. Run migrations to create tables
+# 2. Start the server
+CMD ["/nakama/nakama migrate up --config ./data/local.yml && /nakama/nakama --config ./data/local.yml --data_dir ./data"]
