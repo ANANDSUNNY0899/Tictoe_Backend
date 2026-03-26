@@ -7,4 +7,4 @@ logger:
 session:
   token_expiry_sec: 7200
 runtime:
-  js_entrypoint: "index.js"
+  js_entrypoint: "modules/index.js"
