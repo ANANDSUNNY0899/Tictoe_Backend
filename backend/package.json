@@ -1,0 +1,24 @@
+{
+  "name": "lilaassignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ANANDSUNNY0899/Tictoe_Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ANANDSUNNY0899/Tictoe_Backend/issues"
+  },
+  "homepage": "https://github.com/ANANDSUNNY0899/Tictoe_Backend#readme",
+  "devDependencies": {
+    "nakama-runtime": "github:heroiclabs/nakama-common"
+  }
+}
