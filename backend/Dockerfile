@@ -13,5 +13,5 @@ COPY ./local.yml ./data/
 EXPOSE 7349 7350 7351
 
 ENTRYPOINT ["/nakama/nakama"]
-# We only point to the config; we will let Render handle the DB address
+# Notice: No database flags here. We will use the Environment Variable exclusively.
 CMD ["--config", "./data/local.yml", "--data_dir", "./data"]
