@@ -4,19 +4,20 @@ COPY package*.json ./
 RUN npm install
 
 FROM heroiclabs/nakama:3.25.0
-WORKDIR /nakama/data
+# We move back one level to the root of the app
+WORKDIR /nakama
 
-# 1. Copy index.js directly into the WORKDIR (/nakama/data/)
-# We are NOT putting it in a modules folder anymore to stop the path doubling
-COPY ./modules/index.js .
+# 1. Copy dependencies into the standard location
+COPY --from=builder /app/node_modules ./data/modules/node_modules/
 
-# 2. Copy dependencies
-COPY --from=builder /app/node_modules ./node_modules/
+# 2. Copy your index.js into the standard location
+COPY ./modules/index.js ./data/modules/
 
 # 3. Copy the config
-COPY ./local.yml .
+COPY ./local.yml ./data/
 
 EXPOSE 7349 7350 7351
 
 ENTRYPOINT ["/nakama/nakama"]
-CMD ["--config", "local.yml", "--database.address", "root@localhost:26257"]
+# We use the --data_dir flag to FORCE Nakama to use the correct path
+CMD ["--config", "./data/local.yml", "--data_dir", "./data", "--database.address", "root@localhost:26257"]
