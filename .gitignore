@@ -1,0 +1,4 @@
+node_modules/
+nakama-data/
+.expo/
+dist/
