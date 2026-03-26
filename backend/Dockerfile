@@ -2,8 +2,8 @@
 FROM node:20-bookworm-slim AS builder
 WORKDIR /app
 
-# Reach into the backend folder
-COPY ./backend/package*.json ./
+# Point to where package.json is (Root)
+COPY package*.json ./
 RUN npm install
 
 # Step 2: Final Nakama stage
@@ -12,8 +12,11 @@ WORKDIR /nakama/data
 
 COPY --from=builder /app/node_modules /nakama/data/modules/node_modules/
 
-# Reach into the backend folder for logic and config
-COPY ./backend/index.js /nakama/data/modules/
+# --- UPDATED PATHS TO MATCH YOUR SIDEBAR ---
+# Your sidebar shows index.js is inside backend/modules/
+COPY ./backend/modules/index.js /nakama/data/modules/
+
+# Your sidebar shows local.yml is inside backend/
 COPY ./backend/local.yml /nakama/data/
 
 EXPOSE 7349 7350 7351
