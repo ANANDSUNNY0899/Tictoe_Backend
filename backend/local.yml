@@ -1,7 +1,4 @@
 name: nakama-node-1
-database:
-  address:
-    - "postgres://root:cby1yuK1SooZbmNZpgZ4I8IufZGZ71pN@dpg-d72osnu3jp1c7386n5ag-a:5432/nakama_a6dq"
 logger:
   level: "DEBUG"
 session:
